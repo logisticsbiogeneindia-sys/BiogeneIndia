@@ -37,9 +37,11 @@ body {background-color: #f8f9fa; font-family: "Helvetica Neue", sans-serif;}
 .navbar { display: flex; align-items: center; background-color: #004a99; padding: 8px 16px; border-radius: 8px; color: white; position: sticky; top: 0; z-index: 1000; }
 .navbar img { height: 50px; margin-right: 15px; }
 .navbar h1 { font-size: 24px; margin: 0; font-weight: 700; }
-/* Hide the GitHub fork button and logo */
-.css-1v3fvcr, .css-1b26a8j, .css-1yq2kxw {visibility: hidden;}
-/* Remove the footer with Streamlit branding */
+/* Hide GitHub "Fork" button and GitHub link */
+div.stMarkdown a[href*="github.com"] {display: none;} /* Hide any link to GitHub */
+div[role="button"][aria-label="Fork"] {display: none;} /* Hide the Fork button */
+div[role="button"][aria-label="GitHub"] {display: none;} /* Hide GitHub logo button */
+/* Hide footer with Streamlit branding */
 footer {visibility: hidden;}
 /* Adjust the margin of the app container */
 .stApp {padding-top: 0;}
