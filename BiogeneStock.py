@@ -37,14 +37,6 @@ body {background-color: #f8f9fa; font-family: "Helvetica Neue", sans-serif;}
 .navbar { display: flex; align-items: center; background-color: #004a99; padding: 8px 16px; border-radius: 8px; color: white; position: sticky; top: 0; z-index: 1000; }
 .navbar img { height: 50px; margin-right: 15px; }
 .navbar h1 { font-size: 24px; margin: 0; font-weight: 700; }
-/* Hide GitHub "Fork" button and GitHub link */
-div.stMarkdown a[href*="github.com"] {display: none;} /* Hide any link to GitHub */
-div[role="button"][aria-label="Fork"] {display: none;} /* Hide the Fork button */
-div[role="button"][aria-label="GitHub"] {display: none;} /* Hide GitHub logo button */
-/* Hide footer with Streamlit branding */
-footer {visibility: hidden;}
-/* Adjust the margin of the app container */
-.stApp {padding-top: 0;}
 .footer { position: fixed; left: 0; bottom: 0; width: 100%; background-color: #004a99; color: white; text-align: center; padding: 8px; font-size: 14px; }
 </style>
 """, unsafe_allow_html=True)
