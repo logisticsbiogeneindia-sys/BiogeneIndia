@@ -237,6 +237,7 @@ with tab4:
     remarks_col = find_column(search_df, ["Remarks", "Remark", "Notes", "Comments"])
     awb_col = find_column(search_df, ["AWB", "AWB Number", "Tracking Number"])
     date_col = find_column(search_df, ["Date", "Dispatch Date", "Created On", "Order Date"])
+    discription_col = find_column(search_df, ["Discription", "Item Discriptin", "ItemDiscription", "Disc"])
 
     df_filtered = search_df.copy()
     search_performed = False
@@ -261,7 +262,7 @@ with tab4:
             df_filtered = df_filtered[df_filtered[remarks_col].astype(str).str.contains(search_remarks, case=False, na=False)]
 
     elif search_sheet == "Item Wise Current Inventory":
-        col1, col2, col3, col4 = st.columns(4)
+        col1, col2, col3, col4, col5 = st.columns(5)
         with col1:
             search_item = st.text_input("Search by Item Code").strip()
         with col2:
@@ -270,6 +271,8 @@ with tab4:
             search_brand = st.text_input("Search by Brand").strip()
         with col4:
             search_remarks = st.text_input("Search by Remarks").strip()
+        with col5:
+            search_discription = st.text_input("Search by Discription").strip()
 
         if search_item and item_col:
             search_performed = True
@@ -281,6 +284,10 @@ with tab4:
             search_performed = True
             df_filtered = df_filtered[df_filtered[brand_col].astype(str).str.contains(search_brand, case=False, na=False)]
         if search_remarks and remarks_col:
+            search_performed = True
+            df_filtered = df_filtered[df_filtered[remarks_col].astype(str).str.contains(search_remarks, case=False, na=False)]
+
+        if search_discription and discription_col:
             search_performed = True
             df_filtered = df_filtered[df_filtered[remarks_col].astype(str).str.contains(search_remarks, case=False, na=False)]
 
