@@ -261,35 +261,40 @@ with tab4:
             search_performed = True
             df_filtered = df_filtered[df_filtered[remarks_col].astype(str).str.contains(search_remarks, case=False, na=False)]
 
-    elif search_sheet == "Item Wise Current Inventory":
-        col1, col2, col3, col4, col5 = st.columns(5)
-        with col1:
-            search_item = st.text_input("Search by Item Code").strip()
-        with col2:
-            search_customer = st.text_input("Search by Customer Name").strip()
-        with col3:
-            search_brand = st.text_input("Search by Brand").strip()
-        with col4:
-            search_remarks = st.text_input("Search by Remarks").strip()
-        with col5:
-            search_discription = st.text_input("Search by Discription").strip()
+   elif search_sheet == "Item Wise Current Inventory":
+    col1, col2, col3, col4, col5 = st.columns(5)
+    with col1:
+        search_item = st.text_input("Search by Item Code").strip()
+    with col2:
+        search_customer = st.text_input("Search by Customer Name").strip()
+    with col3:
+        search_brand = st.text_input("Search by Brand").strip()
+    with col4:
+        search_remarks = st.text_input("Search by Remarks").strip()
+    with col5:
+        search_discription = st.text_input("Search by Description").strip()
 
-        if search_item and item_col:
-            search_performed = True
-            df_filtered = df_filtered[df_filtered[item_col].astype(str).str.contains(search_item, case=False, na=False)]
-        if search_customer and customer_col:
-            search_performed = True
-            df_filtered = df_filtered[df_filtered[customer_col].astype(str).str.contains(search_customer, case=False, na=False)]
-        if search_brand and brand_col:
-            search_performed = True
-            df_filtered = df_filtered[df_filtered[brand_col].astype(str).str.contains(search_brand, case=False, na=False)]
-        if search_remarks and remarks_col:
-            search_performed = True
-            df_filtered = df_filtered[df_filtered[remarks_col].astype(str).str.contains(search_remarks, case=False, na=False)]
+    if search_item and item_col:
+        search_performed = True
+        df_filtered = df_filtered[df_filtered[item_col].astype(str).str.contains(search_item, case=False, na=False)]
 
-        if search_discription and discription_col:
-            search_performed = True
-            df_filtered = df_filtered[df_filtered[discription_col].astype(str).str.contains(search_discription, case=False, na=False)]
+    if search_customer and customer_col:
+        search_performed = True
+        df_filtered = df_filtered[df_filtered[customer_col].astype(str).str.contains(search_customer, case=False, na=False)]
+
+    if search_brand and brand_col:
+        search_performed = True
+        df_filtered = df_filtered[df_filtered[brand_col].astype(str).str.contains(search_brand, case=False, na=False)]
+
+    if search_remarks and remarks_col:
+        search_performed = True
+        df_filtered = df_filtered[df_filtered[remarks_col].astype(str).str.contains(search_remarks, case=False, na=False)]
+
+    if search_discription and discription_col:
+        search_performed = True
+        df_filtered = df_filtered[
+            df_filtered[discription_col].astype(str).str.contains(search_discription, case=False, na=False)
+        ]
 
 
     elif search_sheet == "Dispatches":
@@ -327,5 +332,6 @@ st.markdown("""
     © 2025 Biogene India | Created By Mohit Sharma
 </div>
 """, unsafe_allow_html=True)
+
 
 
