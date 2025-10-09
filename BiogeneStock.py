@@ -288,8 +288,9 @@ with tab4:
             df_filtered = df_filtered[df_filtered[remarks_col].astype(str).str.contains(search_remarks, case=False, na=False)]
 
         if search_discription and discription_col:
-            search_performed = True
-            df_filtered = df_filtered[df_filtered[remarks_col].astype(str).str.contains(search_remarks, case=False, na=False)]
+    search_performed = True
+    df_filtered = df_filtered[df_filtered[discription_col].astype(str).str.contains(search_discription, case=False, na=False)]
+
 
     elif search_sheet == "Dispatches":
         col1, col2, col3 = st.columns(3)
@@ -326,3 +327,4 @@ st.markdown("""
     © 2025 Biogene India | Created By Mohit Sharma
 </div>
 """, unsafe_allow_html=True)
+
