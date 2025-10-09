@@ -63,7 +63,7 @@ st.markdown(f"""
 st.sidebar.header("⚙️ Settings")
 inventory_type = st.sidebar.selectbox("Choose Inventory Type", ["Current Inventory", "Item Wise Current Inventory"])
 password = st.sidebar.text_input("Enter Password to Upload/Download File", type="password")
-correct_password = st.secrets["PASSWORD"]  # Storing password in Streamlit secrets
+correct_password = st.secrets["PASSWORD"]
 
 UPLOAD_PATH = "Master-Stock Sheet Original.xlsx"
 TIMESTAMP_PATH = "timestamp.txt"
@@ -149,7 +149,7 @@ if password == correct_password:
         with st.spinner("Uploading file..."):
             with open(UPLOAD_PATH, "wb") as f:
                 f.write(uploaded_file.getbuffer())
-            
+
             timezone = pytz.timezone("Asia/Kolkata")
             upload_time = datetime.now(timezone).strftime("%d-%m-%Y %H:%M:%S")
             save_timestamp(upload_time)
@@ -237,7 +237,7 @@ with tab4:
     remarks_col = find_column(search_df, ["Remarks", "Remark", "Notes", "Comments"])
     awb_col = find_column(search_df, ["AWB", "AWB Number", "Tracking Number"])
     date_col = find_column(search_df, ["Date", "Dispatch Date", "Created On", "Order Date"])
-    discription_col = find_column(search_df, ["Discription", "Item Discriptin", "ItemDiscription", "Disc"])
+    description_col = find_column(search_df, ["Description", "Discription", "Item Description", "ItemDiscription", "Disc"])
 
     df_filtered = search_df.copy()
     search_performed = False
@@ -261,41 +261,34 @@ with tab4:
             search_performed = True
             df_filtered = df_filtered[df_filtered[remarks_col].astype(str).str.contains(search_remarks, case=False, na=False)]
 
-   elif search_sheet == "Item Wise Current Inventory":
-    col1, col2, col3, col4, col5 = st.columns(5)
-    with col1:
-        search_item = st.text_input("Search by Item Code").strip()
-    with col2:
-        search_customer = st.text_input("Search by Customer Name").strip()
-    with col3:
-        search_brand = st.text_input("Search by Brand").strip()
-    with col4:
-        search_remarks = st.text_input("Search by Remarks").strip()
-    with col5:
-        search_discription = st.text_input("Search by Description").strip()
+    elif search_sheet == "Item Wise Current Inventory":
+        col1, col2, col3, col4, col5 = st.columns(5)
+        with col1:
+            search_item = st.text_input("Search by Item Code").strip()
+        with col2:
+            search_customer = st.text_input("Search by Customer Name").strip()
+        with col3:
+            search_brand = st.text_input("Search by Brand").strip()
+        with col4:
+            search_remarks = st.text_input("Search by Remarks").strip()
+        with col5:
+            search_description = st.text_input("Search by Description").strip()
 
-    if search_item and item_col:
-        search_performed = True
-        df_filtered = df_filtered[df_filtered[item_col].astype(str).str.contains(search_item, case=False, na=False)]
-
-    if search_customer and customer_col:
-        search_performed = True
-        df_filtered = df_filtered[df_filtered[customer_col].astype(str).str.contains(search_customer, case=False, na=False)]
-
-    if search_brand and brand_col:
-        search_performed = True
-        df_filtered = df_filtered[df_filtered[brand_col].astype(str).str.contains(search_brand, case=False, na=False)]
-
-    if search_remarks and remarks_col:
-        search_performed = True
-        df_filtered = df_filtered[df_filtered[remarks_col].astype(str).str.contains(search_remarks, case=False, na=False)]
-
-    if search_discription and discription_col:
-        search_performed = True
-        df_filtered = df_filtered[
-            df_filtered[discription_col].astype(str).str.contains(search_discription, case=False, na=False)
-        ]
-
+        if search_item and item_col:
+            search_performed = True
+            df_filtered = df_filtered[df_filtered[item_col].astype(str).str.contains(search_item, case=False, na=False)]
+        if search_customer and customer_col:
+            search_performed = True
+            df_filtered = df_filtered[df_filtered[customer_col].astype(str).str.contains(search_customer, case=False, na=False)]
+        if search_brand and brand_col:
+            search_performed = True
+            df_filtered = df_filtered[df_filtered[brand_col].astype(str).str.contains(search_brand, case=False, na=False)]
+        if search_remarks and remarks_col:
+            search_performed = True
+            df_filtered = df_filtered[df_filtered[remarks_col].astype(str).str.contains(search_remarks, case=False, na=False)]
+        if search_description and description_col:
+            search_performed = True
+            df_filtered = df_filtered[df_filtered[description_col].astype(str).str.contains(search_description, case=False, na=False)]
 
     elif search_sheet == "Dispatches":
         col1, col2, col3 = st.columns(3)
@@ -310,7 +303,10 @@ with tab4:
             start, end = date_range
             search_performed = True
             df_filtered[date_col] = pd.to_datetime(df_filtered[date_col], errors="coerce")
-            df_filtered = df_filtered[(df_filtered[date_col] >= pd.to_datetime(start)) & (df_filtered[date_col] <= pd.to_datetime(end))]
+            df_filtered = df_filtered[
+                (df_filtered[date_col] >= pd.to_datetime(start)) &
+                (df_filtered[date_col] <= pd.to_datetime(end))
+            ]
         if search_awb and awb_col:
             search_performed = True
             df_filtered = df_filtered[df_filtered[awb_col].astype(str).str.contains(search_awb, case=False, na=False)]
@@ -332,6 +328,3 @@ st.markdown("""
     © 2025 Biogene India | Created By Mohit Sharma
 </div>
 """, unsafe_allow_html=True)
-
-
-
