@@ -201,7 +201,7 @@ else:
     st.success(f"✅ **{sheet_name}** Loaded Successfully!")
     check_col = find_column(df, ["Check", "Location", "Status", "Type", "StockType"])
 
-tab1, tab2, tab3, tab4 = st.tabs(["🏠 Local", "🚚 Outstation", "📦 Other", "🔍 Search"])
+tab1, tab2, tab3, tab4, tab5 = st.tabs(["🏠 Local", "🚚 Outstation", "📦 Other", "🔍 Search", "🔍 Free Search Mastersheet"])
 
 if check_col and sheet_name != "Dispatches":
     check_vals = df[check_col].astype(str).str.strip().str.lower()
@@ -320,6 +320,56 @@ with tab4:
         else:
             st.dataframe(df_filtered, use_container_width=True, height=600)
 
+with tab5:
+    st.subheader("🔎 Free Search - Master Sheet")
+   # Load the Master Sheet Data
+    master_df = xl.parse("MasterSheet")  # Replace with the actual sheet name if it's different
+    
+
+     # Columns
+    item_col = find_column(master_df, ["Item Code", "ItemCode", "SKU", "Product Code"])
+    customer_col = find_column(master_df, ["Customer Name", "CustomerName", "Customer", "CustName"])
+    brand_col = find_column(master_df, ["Brand", "BrandName", "Product Brand", "Company"])
+    quantity_col = find_column(master_df, ["Quantity", "Stock", "Inventory", "Qty"])
+
+    # Input fields for Free Search
+    search_item = st.text_input("Search by Item Code").strip()
+    search_customer = st.text_input("Search by Customer Name").strip()
+    search_brand = st.text_input("Search by Brand").strip()
+    
+    # Quantity filter options
+    quantity_condition = st.selectbox("Quantity Condition", ["All", "Greater than 0", "Less than 0", "Equal to 0"])
+
+    # Apply filters based on user inputs
+    df_filtered = master_df.copy()
+    search_performed = False
+
+    if search_item and item_col:
+        search_performed = True
+        df_filtered = df_filtered[df_filtered[item_col].astype(str).str.contains(search_item, case=False, na=False)]
+    if search_customer and customer_col:
+        search_performed = True
+        df_filtered = df_filtered[df_filtered[customer_col].astype(str).str.contains(search_customer, case=False, na=False)]
+    if search_brand and brand_col:
+        search_performed = True
+        df_filtered = df_filtered[df_filtered[brand_col].astype(str).str.contains(search_brand, case=False, na=False)]
+
+    # Filter based on Quantity condition
+    if quantity_condition != "All" and quantity_col:
+        search_performed = True
+        if quantity_condition == "Greater than 0":
+            df_filtered = df_filtered[df_filtered[quantity_col] > 0]
+        elif quantity_condition == "Less than 0":
+            df_filtered = df_filtered[df_filtered[quantity_col] < 0]
+        elif quantity_condition == "Equal to 0":
+            df_filtered = df_filtered[df_filtered[quantity_col] == 0]
+
+    # Display the filtered data
+    if search_performed:
+        if df_filtered.empty:
+            st.warning("No matching records found.")
+        else:
+            st.dataframe(df_filtered, use_container_width=True, height=600)
 # -------------------------
 # Footer
 # -------------------------
