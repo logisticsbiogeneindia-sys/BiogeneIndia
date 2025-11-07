@@ -216,7 +216,7 @@ if check_col and sheet_name != "Dispatches":
         st.dataframe(df[~check_vals.isin(["local", "outstation"])], use_container_width=True, height=600)
     with tab4:
         st.subheader("Unknown")
-        st.dataframe(df[check_vals == "Unknown"], use_container_width=True, height=600)
+        st.dataframe(df[check_vals == "unknown"], use_container_width=True, height=600)
 else:
     with tab1:
         st.subheader("📄 No Inventory Data")
@@ -331,3 +331,4 @@ st.markdown("""
     © 2025 Biogene India | Created By Mohit Sharma
 </div>
 """, unsafe_allow_html=True)
+
