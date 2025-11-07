@@ -201,7 +201,7 @@ else:
     st.success(f"✅ **{sheet_name}** Loaded Successfully!")
     check_col = find_column(df, ["Check", "Location", "Status", "Type", "StockType"])
 
-tab1, tab2, tab3, tab4, tab5 = st.tabs(["🏠 Local", "🚚 Outstation", "📦 Other","🤔 Unknown", "🔍 Search"])
+tab1, tab2, tab3, tab4, tab5 = st.tabs(["🏠 Local", "🚚 Outstation", "📦 Other","❓ Unknown", "🔍 Search"])
 
 if check_col and sheet_name != "Dispatches":
     check_vals = df[check_col].astype(str).str.strip().str.lower()
@@ -213,9 +213,9 @@ if check_col and sheet_name != "Dispatches":
         st.dataframe(df[check_vals == "outstation"], use_container_width=True, height=600)
     with tab3:
         st.subheader("📦 Other Inventory")
-        st.dataframe(df[~check_vals.isin(["local", "outstation"])], use_container_width=True, height=600)
+        st.dataframe(df[~check_vals.isin(["local", "outstation","unknown"])], use_container_width=True, height=600)
     with tab4:
-        st.subheader("🤔 Unknown")
+        st.subheader("❓ Unknown")
         st.dataframe(df[check_vals == "unknown"], use_container_width=True, height=600)
 else:
     with tab1:
@@ -331,5 +331,6 @@ st.markdown("""
     © 2025 Biogene India | Created By Mohit Sharma
 </div>
 """, unsafe_allow_html=True)
+
 
 
