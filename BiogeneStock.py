@@ -236,7 +236,7 @@ with tab5:
     search_sheet = st.selectbox("Select sheet to search", allowed_sheets, index=0)
     search_df = xl.parse(search_sheet)
 
-    item_col = find_column(search_df, ["Invoice Number", "Invoice", "Inv No"])
+    item_col = find_column(search_df, ["Item Code", "ItemCode", "SKU", "Product Code"])
     customer_col = find_column(search_df, ["Customer Name", "Customer name", "Customer"])
     brand_col = find_column(search_df, ["Brand", "Company"])
     remarks_col = find_column(search_df, ["Remarks", "Mohit Remarks", "Notes"])
@@ -270,7 +270,8 @@ with tab5:
     elif search_sheet == "New Stock Sheet":
         col1, col2, col3, col4 = st.columns(4)
         with col1:
-            search_item = st.text_input("Search by Invoice").strip()
+            search_item = st.text_input("Search by Item Code").strip()
+
         with col2:
             search_customer = st.text_input("Search by Customer Name").strip()
         with col3:
@@ -305,3 +306,4 @@ st.markdown("""
     © 2025 Biogene India | Created By Mohit Sharma
 </div>
 """, unsafe_allow_html=True)
+
